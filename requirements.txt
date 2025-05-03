@@ -1,2 +1,5 @@
 mesa>=1.2.1
 pandas>=1.3.0
+networkx>=2.5
+matplotlib>=3.3.0
+numpy>=1.19.0
