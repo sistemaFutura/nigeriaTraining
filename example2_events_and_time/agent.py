@@ -16,7 +16,6 @@ class Person:
         else:
             self.using_digital_services = random.random() < self.digital_literacy_level
 
-# Define the Bank
 class Bank():
     # Initialize the bank: what do they start with?
     def __init__(self, campaign_capacity, campaign_effectiveness, people):
@@ -29,6 +28,8 @@ class Bank():
 
         to_sample = min(len(non_users), self.campaign_capacity)
         if to_sample > 0:
-            campaign_members  = random.sample(non_users, to_sample)
+            campaign_members = random.sample(non_users, to_sample)
             for person in campaign_members:
-                person.digital_literacy_level = max(person.digital_literacy_level*self.campaign_effectiveness, 1)
+                # Increment literacy level and cap it at 1.0
+                person.digital_literacy_level = min(person.digital_literacy_level * self.campaign_effectiveness, 1.0)
+
