@@ -1,7 +1,7 @@
 from mesa import DataCollector
 from agent import Person, Bank 
 import pandas as pd 
-
+from mesa import Model
 
 class DigitalInclusionModel(Model):
     def __init__(self, csv_file, campaign_capacity, campaign_effectiveness):
