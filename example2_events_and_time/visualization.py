@@ -1,9 +1,7 @@
 import pandas as pd
 import matplotlib.pyplot as plt
 
-if __name__ == "__main__":
-    # Load data from the CSV file
-    results_df = pd.read_csv("model_results.csv")
+def graph_it(results_df):
 
     # Configure the chart
     plt.figure(figsize=(10, 6))

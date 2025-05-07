@@ -1,4 +1,6 @@
 from model import DigitalInclusionModel
+from visualization import graph_it
+import pandas as pd
 
 if __name__ == "__main__":
     csv_file = "person_data.csv"
@@ -6,12 +8,10 @@ if __name__ == "__main__":
     campaign_effectiveness = 1.1 # increases the digital literacy of a person by 10%
 
     model = DigitalInclusionModel(csv_file, campaign_capacity, campaign_effectiveness)
+    results_df = None
 
     for step in range(10):
         model.step()
-
-        # Read the data being automatically collected from the model
-        data = model.datacollector.get_model_vars_dataframe()
 
         # Collect additional data
         total_people = len(model.people)
@@ -23,4 +23,4 @@ if __name__ == "__main__":
         # Share the outccomes
         print(f"Step {step}: Users = {users}, Non-Users = {non_users}, Capacity = {capacity}, Usage Ratio = {usage_ratio:.2%}")
 
-
+    graph_it(model.datacollector.get_model_vars_dataframe())

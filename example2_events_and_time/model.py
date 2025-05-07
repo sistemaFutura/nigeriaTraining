@@ -6,6 +6,7 @@ import pandas as pd
 class DigitalInclusionModel:
     def __init__(self, csv_file, campaign_capacity, campaign_effectiveness):
         self.people = []
+        self.current_step = 0
 
         data = pd.read_csv(csv_file)
 
@@ -24,13 +25,15 @@ class DigitalInclusionModel:
         # Create a mesa data collector: to help us keep track of data per tick
         self.datacollector = DataCollector(
             {
-                "Users of Digital Services": lambda m: sum(p.using_digital_services for p in m.people),
+                "Step": lambda m: m.current_step,
+                "Users": lambda m: sum(p.using_digital_services for p in m.people),
                 "Non-Users": lambda m: sum(not p.using_digital_services for p in m.people),
-                "Total Promotion Capacity": lambda m: m.bank.campaign_capacity
+                "Campaign Capacity": lambda m: m.bank.campaign_capacity
             }
         )
-
+ 
     def step(self):
+        self.current_step += 1
         self.bank.step()
         for person in self.people:
             person.step()
