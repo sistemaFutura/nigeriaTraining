@@ -1,4 +1,5 @@
 import random
+from mesa import Agent
 
 # Define the Person
 class Person(Agent):
@@ -10,6 +11,7 @@ class Person(Agent):
         self.digital_literacy_level = digital_literacy_level  
 
     # How does the person change over time?  Each time period, we call "Step" once
+
     def step(self):
         if self.using_digital_services:
             self.using_digital_services = not (random.random() < self.prob_stopping_use)
