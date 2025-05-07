@@ -7,8 +7,8 @@ from model import DigitalInclusionModel
 class TestLogicalChecks(unittest.TestCase):
     def setUp(self):
         self.test_data = StringIO("""ID,Education Level,Digital Literacy Level,Uses Digital Services,Stopping Probability
-1,Bachelor's,6,False,0.1
-2,High School,4,False,0.2
+1,Bachelor's,0.6,False,0.1
+2,High School,0.4,False,0.2
 """)
         self.df = pd.read_csv(self.test_data)
         self.df.to_csv("test_data.csv", index=False)
@@ -24,20 +24,20 @@ class TestLogicalChecks(unittest.TestCase):
 class TestBoundaryPolicyIncrement(unittest.TestCase):
     def setUp(self):
         self.test_data = StringIO("""ID,Education Level,Digital Literacy Level,Uses Digital Services,Stopping Probability
-1,Bachelor's,9.8,False,0.1
-2,High School,10,False,0.1
-3,Master's,0,False,0.1
+1,Bachelor's,0.98,False,0.1
+2,High School,1.0,False,0.1
+3,Master's,0.0,False,0.1
 """)
         df = pd.read_csv(self.test_data)
         df.to_csv("test_data.csv", index=False)
 
     def test_policy_digital_literacy_bounds(self):
-        model = DigitalInclusionModel("test_data.csv", campaign_capacity=0, campaign_effectiveness=1.1)
+        model = DigitalInclusionModel("test_data.csv", campaign_capacity=3, campaign_effectiveness=1.1)
         model.step()
         values = [p.digital_literacy_level for p in model.people]
-        self.assertEqual(values[0], 10)  # 9.8 * 1.1 = 10 (limitado)
-        self.assertEqual(values[1], 10)  # Ya está en 10, se mantiene
-        self.assertEqual(values[2], 0.5)  # Era 0, debe incrementarse
+        self.assertEqual(values[0], 1.0)  # 9.8 * 1.1 = 10 (limitado)
+        self.assertEqual(values[1], 1.0)  # Ya está en 1.0, se mantiene
+        self.assertEqual(values[2], 0.0)  # Era 0, debe incrementarse
 
 
 class TestErrorHandling(unittest.TestCase):
@@ -61,25 +61,25 @@ class TestErrorHandling(unittest.TestCase):
 class TestDataRepresentation(unittest.TestCase):
     def setUp(self):
         self.test_data = StringIO("""ID,Education Level,Digital Literacy Level,Uses Digital Services,Stopping Probability
-1,Bachelor's,4.5,False,0.1
+1,Bachelor's,0.45,False,0.1
 """)
         self.df = pd.read_csv(self.test_data)
         self.df.to_csv("test_data.csv", index=False)
 
     def test_policy_agent_increases_literacy(self):
-        model = DigitalInclusionModel("test_data.csv", 0, 0)
+        model = DigitalInclusionModel("test_data.csv", 1, 1.11)
         person = model.people[0]
-        self.assertEqual(person.digital_literacy_level, 4.5)
+        self.assertEqual(person.digital_literacy_level, .45)
         model.step()
-        self.assertEqual(person.digital_literacy_level, 5.0)
+        self.assertAlmostEqual(person.digital_literacy_level, .50, 2)
 
 
 class TestIntegration(unittest.TestCase):
     def setUp(self):
         self.test_data = StringIO("""ID,Education Level,Digital Literacy Level,Uses Digital Services,Stopping Probability
-1,Bachelor's,4,False,0.1
-2,Bachelor's,5,False,0.1
-3,High School,3,False,0.1
+1,Bachelor's,0.4,False,0.1
+2,Bachelor's,0.5,False,0.1
+3,High School,0.3,False,0.1
 """)
         self.df = pd.read_csv(self.test_data)
         self.df.to_csv("test_data.csv", index=False)

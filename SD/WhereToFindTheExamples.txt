@@ -1,0 +1,11 @@
+Patient Waiting List Example: https://insightmaker.com/insight/3p4f1uFfyTgNC1hy19xog5/Patient-flow-and-waitlist-Management
+
+HPV Vaccine Example:  
+Step 0: Baseline demand only https://insightmaker.com/insight/78NDyYnE0Fvv9TZFGsRGwN/sF-Vaccine-Model-Step-0
+Step 1: Add a vaccination campaign https://insightmaker.com/insight/6JWwpo4s5BqVSCbrPi4lxS/sF-Vaccine-Model-Step-1
+Step 2: Add social proof https://insightmaker.com/insight/3KKgYXR0mIkwKK2etZjcfc/sF-Vaccine-Model-Step-2
+Step 3: Addd vaccine hesitancy https://insightmaker.com/insight/7emrB6rRKUvd4Xhp7jQa5T/sF-Vaccine-Model-Step-3
+
+Infection Model
+1. SD SIR Model https://insightmaker.com/insight/4CQsFvrPC9jDdV82sIx0tu/SIR-Disease-Model
+2. ABM SIR Model https://insightmaker.com/insight/5s50cHzvjblXrth2RTBiwp/Agent-Based-Disease-Simulation

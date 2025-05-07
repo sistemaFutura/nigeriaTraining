@@ -1,3 +1,3 @@
 ID,Education Level,Digital Literacy Level,Uses Digital Services,Stopping Probability
-1,Bachelor's,6,False,0.1
-2,High School,4,False,0.2
+1,Bachelor's,0.6,False,0.1
+2,High School,0.4,False,0.2
